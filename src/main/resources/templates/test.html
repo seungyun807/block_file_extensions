@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{css/style.css}" rel="stylesheet"/>
+    <title>파일 확장자 차단</title>
+</head>
+<body>
+    <div style="grid-column: 1/3">
+        <h1>파일 확장자 차단</h1>
+    </div>
+    <div>
+        <h3>고정 확장자</h3>
+    </div>
+    <div class="flex">
+        <div th:each="item:${setext}">
+            <input th:if="${item.set_extension_check}"
+                   type="checkbox" onchange="checkBox(this)"
+                   th:value="${item.set_extension_num}" checked>
+
+            <input th:unless="${item.set_extension_check}"
+                   type="checkbox" onchange="checkBox(this)"
+                   th:value="${item.set_extension_num}">
+
+            <label th:text= "${item.set_extension_name}"></label>
+        </div>
+    </div>
+    <div>
+        <h3>커스텀 확장자</h3>
+    </div>
+    <div class="flex">
+        <input id="inputext" type="text" placeholder="확장자 입력">
+        <button id="submit">추가</button>
+    </div>
+    <div></div>
+    <div>
+        <div id="extBox" >
+            <div class="elementBox" th:id="elementBox + ${item.extension_num}" th:each="item:${ext}">
+                <div class="element" th:text="${item.extension_name}" ></div>
+                    <button class="delBtn" th:id="${item.extension_num}" onclick="hello(this)">X</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function checkBox(checked){
+        var result = checked.getAttribute("value");
+        var check = checked.getAttribute("checked");
+        $.ajax({
+            url: "/saveset",
+            type: "POST",
+            data: { "result" : result }
+        }).done(function (fragment){
+
+        });
+
+    }
+    function save(){
+        var result = document.getElementById('inputext').value;
+        $.ajax({
+            url: "/save",
+            type: "POST",
+            data: { "result" : result },
+        }).done(function (fragment){
+
+        });
+    }
+    function hello(btn){
+        var num = btn.getAttribute("id");
+        $.ajax({
+            url: "/del",
+            type: "GET",
+            data: { "num" : num },
+        }).done(function (fragment){
+            document.getElementById("elementBox"+num).remove();
+        });
+    }
+    document.getElementById('submit').addEventListener("click", save)
+</script>
+</html>
