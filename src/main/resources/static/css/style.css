@@ -10,6 +10,11 @@ body {
 label{
     margin-right:10px;
 }
+#inputext{
+    width: 170px;
+    height: 17px;
+    margin-right: 5px;
+}
 #extBox{
     border: 1px solid black;
     width: 90%;
@@ -26,4 +31,8 @@ label{
 }
 .delBtn{
     color: darkred;
+}
+#limitDiv{
+    float: right;
+    margin-right: 10%;
 }

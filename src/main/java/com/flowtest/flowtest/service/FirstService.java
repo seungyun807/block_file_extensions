@@ -6,6 +6,7 @@ import com.flowtest.flowtest.vo.set_extension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -14,15 +15,32 @@ public class FirstService {
     @Autowired
     public FirstMapper mapper;
 
-    public List<extension> selectExt(){
-        return mapper.selectExt();
+    //커스텀 확장자 조회
+    public List<extension> selectAllExt(){
+        return mapper.selectAllExt();
     }
-
+    public int selectExt(String extension_name){
+        return mapper.selectExt(extension_name);
+    }
+    public HashMap<String, Object> selectDelExt(String extension_name){
+        return mapper.selectDelExt(extension_name);
+    }
+    public int selectExtNum(String extension_name) {
+        return mapper.selectExtNum(extension_name);
+    }
+    //커스텀 확장자 변경
+    public void updateExt_1(int extension_num){
+        mapper.updateExt_1(extension_num);
+    }
+    public void updateExt_0(int extension_num){
+        mapper.updateExt_0(extension_num);
+    }
+    public void updateAllExt_1(){
+        mapper.updateAllExt_1();
+    }
+    //커스텀 확장자 추가
     public void insertExt(extension extension) {
         mapper.insertExt(extension);
-    }
-    public void delExt(int extension_num){
-        mapper.delExt(extension_num);
     }
 
     //고정 확장자 전체 조회

@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flowtest.flowtest.mapper.FirstMapper">
-    <select id="selectExt" resultType="hashmap">
+    <select id="selectAllExt" resultType="hashmap">
         select * from block_extension where extension_del = false
     </select>
+    <select id="selectExt" resultType="int">
+        select count(*) from block_extension where extension_name = #{extension_name}
+    </select>
+    <select id="selectDelExt" parameterType="String" resultType="hashmap">
+        select * from block_extension where extension_name = #{extension_name}
+    </select>
+    <select id="selectExtNum" resultType="int" parameterType="String">
+        select extension_num from block_extension where extension_name = #{extension_name};
+    </select>
+    <update id="updateExt_1" parameterType="int">
+        UPDATE block_extension SET extension_del = '1', extension_modify = CURTIME() WHERE extension_num = #{extension_num}
+    </update>
+    <update id="updateExt_0" parameterType="int">
+        UPDATE block_extension SET extension_del = '0', extension_modify = CURTIME() WHERE extension_num = #{extension_num}
+    </update>
+    <update id="updateAllExt_1" parameterType="int">
+        UPDATE block_extension SET extension_del = '1', extension_modify = CURTIME()
+    </update>
     <insert id="insertExt" parameterType="extension">
         <selectKey keyProperty="extension_num" resultType="int" order="BEFORE">
             select ifnull(MAX(extension_num), 0)+1 FROM block_extension;
         </selectKey>
-        insert into block_extension values (#{extension_num}, #{extension_name})
+        insert into block_extension (extension_num, extension_name, extension_modify) values (#{extension_num}, #{extension_name}, CURTIME());
     </insert>
-    <update id="delExt" parameterType="int">
-        update block_extension set extension_del = true where extension_num = #{extension_num};
-    </update>
 
     <select id="selectAllSetExt" resultType="hashmap">
         select * from set_block_extension
@@ -21,9 +36,9 @@
         select set_extension_check from set_block_extension WHERE set_extension_num = #{extension_num}
     </select>
     <update id="updateSetExt_1" parameterType="int">
-        UPDATE set_block_extension SET set_extension_check = '1' WHERE set_extension_num = #{extension_num}
+        UPDATE set_block_extension SET set_extension_check = '1', set_extension_modify = CURTIME() WHERE set_extension_num = #{extension_num}
     </update>
     <update id="updateSetExt_0" parameterType="int">
-        UPDATE set_block_extension SET set_extension_check = '0' WHERE set_extension_num = #{extension_num}
+        UPDATE set_block_extension SET set_extension_check = '0', set_extension_modify = CURTIME() WHERE set_extension_num = #{extension_num}
     </update>
 </mapper>
