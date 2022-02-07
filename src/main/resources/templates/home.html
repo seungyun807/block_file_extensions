@@ -41,7 +41,7 @@
             </div>
         </div>
         <div style="margin-top: 5px">
-            <button id="delAllBtn">모두삭제</button>
+            <button id="delAllBtn">전체삭제</button>
             <div id="limitDiv"></div>
         </div>
     </div>
@@ -56,8 +56,13 @@
         $("#addBtn").click(function (){
             saveExt($("#inputext").val());
         })
+        $("#inputext").on("keyup",function(key){
+            if(key.keyCode==13) {
+                saveExt($("#inputext").val());
+            }
+        });
         $("#delAllBtn").click(function (){
-            if(confirm("모두 삭제하시겠습니까?")){
+            if(confirm("전체 삭제하시겠습니까?")){
                 delAllExt();
             }
         })

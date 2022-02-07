@@ -40,12 +40,16 @@ public class FirstController {
     // 커스텀 확장자 저장
     @RequestMapping(value = "/save", method=RequestMethod.POST)
     public @ResponseBody int save(@RequestParam("result") String input){
+        //커스텀 확장자 추가 개수 체크
+        if(firstService.selectAllExt().size() > 199){
+            return -4;
+        }
         //고정 확장자 check
-        if(Arrays.asList(setExtList).contains(input)){
+        else if(Arrays.asList(setExtList).contains(input)){
             return -3;
         }
         // 길이 check
-        if(input.length()>20){
+        else if(input.length()>20 || input.length() < 1){
             return -2;
         }
         //DB에 이미 존재하는 커스텀 확장자

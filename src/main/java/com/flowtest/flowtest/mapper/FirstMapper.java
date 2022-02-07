@@ -16,15 +16,16 @@ public interface FirstMapper {
     List<extension> selectAllExt();
     int selectExt(String extension_name);
     int selectExtNum(String extension_name);
-    void insertExt(extension extension);
     HashMap<String, Object> selectDelExt(String extension_name);
     void updateExt_1(int  extension_num);
     void updateExt_0(int extension_num);
     void updateAllExt_1();
+    void insertExt(extension extension);
 
     //고정 확장자
+    List<set_extension> selectAllSetExt();
+    Boolean selectSetExt(int extension_num);
     void updateSetExt_1(int extension_num);
     void updateSetExt_0(int extension_num);
-    Boolean selectSetExt(int extension_num);
-    List<set_extension> selectAllSetExt();
+
 }
