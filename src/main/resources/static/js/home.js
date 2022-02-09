@@ -8,7 +8,7 @@ function setExtCheck(val) {
     var checked = val.getAttribute("value");
     $.ajax({
         url: "/savecheck",
-        type: "POST",
+        type: "PATCH",
         data: {
             "checked": checked
         }
@@ -45,7 +45,7 @@ function saveExt(inputExt) {
 function delExt(num) {
     $.ajax({
         url: "/delext",
-        type: "POST",
+        type: "DELETE",
         data: {
             "num": num
         },
@@ -58,7 +58,7 @@ function delExt(num) {
 function delAllExt() {
     $.ajax({
         url: "/delallext",
-        type: "POST",
+        type: "DELETE",
     }).done(function(fragment) {
         $(".elementBox").remove();
         limitCount();

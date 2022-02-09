@@ -26,7 +26,7 @@ public class FirstController {
     }
 
     // 고정 확장자
-    @RequestMapping(value = "/savecheck", method=RequestMethod.POST)
+    @RequestMapping(value = "/savecheck", method=RequestMethod.PATCH)
     public String saveset(@RequestParam("checked") int checked){
        // checkBox false 일시
         if(!firstService.selectSetExt(checked)){
@@ -71,14 +71,14 @@ public class FirstController {
     }
 
     //커스텀 확정자 삭제
-    @RequestMapping(value = "/delext", method=RequestMethod.POST)
+    @RequestMapping(value = "/delext", method=RequestMethod.DELETE)
     public String delExt(@RequestParam("num") int num){
         firstService.updateExt_1(num);
         return "home";
     }
 
-    //커스텀 확정자 삭제
-    @RequestMapping(value = "/delallext", method=RequestMethod.POST)
+    //커스텀 확정자 모두 삭제
+    @RequestMapping(value = "/delallext", method=RequestMethod.DELETE)
     public String delAllExt(){
         firstService.updateAllExt_1();
         return "home";
